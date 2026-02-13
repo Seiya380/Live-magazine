@@ -6,8 +6,6 @@
 	import '../app.css';
 
 	import { page } from '$app/state';
-	import Navbar from '$lib/components/layout/Navbar.svelte';
-	import Footer from '$lib/components/layout/Footer.svelte';
 
 	let { children } = $props();
 
@@ -19,8 +17,6 @@
 	Aller au contenu
 </a>
 
-<Navbar />
-<main id="main-content" class="min-h-screen {isHome ? '' : 'pt-20'}">
+<main id="main-content" class="min-h-screen">
 	{@render children()}
 </main>
-<Footer />
