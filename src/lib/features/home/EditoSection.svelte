@@ -1,5 +1,5 @@
 <script>
-	// No script needed for a simple, fluid loop.
+	// No script needed. Video playback will be controlled by GSAP from the parent page.
 </script>
 
 <section class="edito-section">
@@ -15,8 +15,6 @@
 		<div class="video-container">
 			<video
 				src="/Image_Animated_to_Cascade.mp4"
-				autoplay
-				loop
 				muted
 				playsinline
 				preload="auto"

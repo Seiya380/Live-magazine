@@ -1,8 +1,67 @@
 <script>
-	import { fade, fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import SEOHead from '$lib/components/seo/SEOHead.svelte';
 	import EditoSection from '$lib/features/home/EditoSection.svelte';
 	import SummarySection from '$lib/features/home/SummarySection.svelte';
+	import QuiSuisJe from '$lib/features/home/QuiSuisJe.svelte';
+
+	onMount(() => {
+		gsap.registerPlugin(ScrollTrigger);
+
+		// --- Transition 1: Intro -> Edito ---
+		const introSection = document.querySelector('.hors-cadre-container');
+		gsap.timeline({
+			scrollTrigger: {
+				trigger: introSection,
+				start: 'top top',
+				end: '+=200%',
+				scrub: true,
+				pin: true,
+				onLeave: () => gsap.set(introSection, { zIndex: 0 }),
+				onEnterBack: () => gsap.set(introSection, { zIndex: 1 })
+			}
+		}).to(introSection, {
+			scale: 0.8,
+			opacity: 0,
+			ease: 'power2.inOut'
+		});
+
+		// --- Transition 2: Edito -> Summary ---
+		const editoSection = document.querySelector('.scroll-container section:nth-of-type(2)');
+		gsap.timeline({
+			scrollTrigger: {
+				trigger: editoSection,
+				start: 'top top',
+				end: '+=200%',
+				scrub: true,
+				pin: true,
+				onLeave: () => gsap.set(editoSection, { zIndex: 1 }),
+				onEnterBack: () => gsap.set(editoSection, { zIndex: 2 })
+			}
+		}).to(editoSection, {
+			opacity: 0,
+			ease: 'power2.inOut'
+		});
+
+		// --- Transition 3: Summary -> QuiSuisJe ---
+		const summarySection = document.querySelector('.scroll-container section:nth-of-type(3)');
+		gsap.timeline({
+			scrollTrigger: {
+				trigger: summarySection,
+				start: 'top top',
+				end: '+=200%',
+				scrub: true,
+				pin: true,
+				onLeave: () => gsap.set(summarySection, { zIndex: 2 }),
+				onEnterBack: () => gsap.set(summarySection, { zIndex: 3 })
+			}
+		}).to(summarySection, {
+			opacity: 0,
+			ease: 'power2.inOut'
+		});
+	});
 </script>
 
 <SEOHead
@@ -10,33 +69,55 @@
 	description="Magazine autobiographique — Les hommes s'offrent des fleurs qu'ils ne peuvent cultiver eux-mêmes"
 />
 
-<section class="hors-cadre-container">
-	<div class="background-animation">
-		<!-- Background animation assets will go here -->
-	</div>
+<div class="scroll-container">
+	<section class="hors-cadre-container">
+		<div class="background-animation">
+			<!-- Background animation assets will go here -->
+		</div>
 
-	<div class="main-title-group">
-		<h1 class="title" in:fly={{ y: -20, duration: 1500, delay: 300 }}>Hors-Cadre</h1>
-		<h2 class="subtitle" in:fade={{ duration: 1500, delay: 800 }}>Edition I</h2>
-	</div>
+		<div class="main-title-group">
+			<h1 class="title">Hors-Cadre</h1>
+			<h2 class="subtitle">Edition I</h2>
+		</div>
 
-	<div class="author-group" in:fade={{ duration: 1500, delay: 1200 }}>
-		<p class="author-info">
-			Autoportrait en 15
-			<br />
-			nuances
-		</p>
-		<p class="author-name">SUAREZ JORIS</p>
-	</div>
-</section>
+		<div class="author-group">
+			<p class="author-info">
+				Autoportrait en 15
+				<br />
+				nuances
+			</p>
+			<p class="author-name">SUAREZ JORIS</p>
+		</div>
+	</section>
 
-<EditoSection />
+	<EditoSection />
 
-<SummarySection />
+	<SummarySection />
+
+	<QuiSuisJe />
+</div>
 
 <style>
+	.scroll-container > :global(section) {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		min-height: 100vh;
+	}
+	.scroll-container > :global(section:nth-of-type(1)) {
+		z-index: 1;
+	}
+	.scroll-container > :global(section:nth-of-type(2)) {
+		z-index: 2;
+	}
+	.scroll-container > :global(section:nth-of-type(3)) {
+		z-index: 3;
+	}
+	.scroll-container > :global(section:nth-of-type(4)) {
+		z-index: 4;
+	}
+
 	.hors-cadre-container {
-		position: relative;
 		width: 100vw;
 		height: 100vh;
 		background-color: #3d235a;

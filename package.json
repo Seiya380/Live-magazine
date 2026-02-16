@@ -24,6 +24,7 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.18",
 		"daisyui": "^5.5.18",
+		"gsap": "^3.14.2",
 		"mdsvex": "^0.12.6",
 		"svelte-meta-tags": "^4.5.0",
 		"tailwindcss": "^4.1.18"
